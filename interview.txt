@@ -1,0 +1,341 @@
+										INTERVIEW QUESTIONS
+										----------	----------
+GIT:
+----
+1)what will happen if you do git fecth ?
+a)git fetch + git merge = git pull
+	if you do git fetch changes will come to loacl repo
+
+2)git merge vs git rebase ?
+a)git merge : a new commit will be created and branches get merged
+  git rebase : a linear form of commits get created
+  --->newer commits will be placed last in the git history
+  --->older commits will be formed in first position
+
+3)what is cherry pick ?
+a)to bring a particular commit from branch to another
+	master : 6 commits bugfix 7th commit
+	feature : 2 commits (bugfix commit)
+	git cherry-pick <commit-id>
+
+4)what is the difference between git pull vs git fetch ?
+a)git pull : bring all changes from remote to working directory
+  git fetch : bring the changes from remote to local repo
+  git merge : merge the local changes to working repo
+
+
+
+
+
+
+
+
+
+
+GIT SCENARIO-BASED INTERVIEW QUESTIONS:
+--- ---------------- ---------- -----------
+## Scenario 1
+**Scenario**: You've accidentally committed sensitive information, such as API keys or passwords, to a Git repository. How would you handle this situation?
+**Answer**: I would first try to remove the sensitive information from the commit history using `git filter-branch` or `git rebase -i`. If the information has been pushed to a remote repository, I would then force-push the changes after modifying the history locally. Additionally, I would rotate any compromised credentials and take measures to ensure that sensitive information is properly handled in the future, such as using environment variables or gitignore file.
+
+## Scenario 2
+**Scenario**: You are working on a feature branch and need to incorporate changes from the main branch into your feature branch. How would you do this?
+**Answer**: First, I would ensure that my feature branch is up to date by checking it out (`git checkout feature-branch`) and pulling the latest changes from the main branch (`git pull origin main`). Then, I would rebase my feature branch onto the main branch (`git rebase main`). This would apply my changes on top of the latest changes from the main branch, ensuring a clean history. Finally, I would resolve any conflicts that may arise during the rebase process.
+
+## Scenario 3
+**Scenario**: You've made several commits on your feature branch but realize that one of the carlier commits introduced a bug. How would you fix this without losing the other changes on your branch?
+**Answer**: I would use `git rebase -i` to interactively rebase my feature branch, specifying the commit where the bug was introduced. During the interactive rebase, I would mark the buggy commit as "edit". Once Git pauses at that commit during the rebase process, I would make the necessary changes to fix the bug and then use `git commit --amend` to update the commit. After fixing the bug, I would continue the rebase process (`git rebase --continue`), allowing Git to apply the subsequent commits on top of the fixed commit
+
+## Scenario 4
+**Scenario**: You've been working on a feature branch for some time and want to share your progress with your team for review. How would you go about this?
+**Answer**: First, I would ensure that my feature branch is up to date with the latest changes from the main branth by rebasing it (`git rebase main`). Then, I would push my feature branch to the remote repository (`git push origin feature-branch`). Finally, I would create a pull request (PR) or merge request (MR) in the repository's hosting platform (e.g., GitHub, GitLab) to initiate the review process. I would provide relevant details in the PR/MR description and notify my team members for their review and feedback.
+
+
+
+
+
+
+
+
+
+
+JENKINS:
+--------
+1)what is difference between continuous delivary & deployment ?
+a)
+
+2)how to write a particular stage in jenkins pipeline ?
+a)
+
+3)while running a job in jenkins build got failed, how will you reslove ?
+a)console output and i will check the logs
+  reason of failure
+  tools configuration issue, developer code
+
+
+
+
+
+
+
+
+
+JENKINS SCENARIO-BASED INTERVIEW QUESTIONS:
+-------- ---------------- ---------- -----------
+
+
+
+
+
+
+
+
+
+
+
+ANSIBLE:
+--------
+1)how to run a specific task on Ansible Playbook (10 tasks)  and skip a specific task ?
+a)using tags in ansible
+	ansible-playbook example.yaml --tags "git"
+	ansible-playbook example.yaml --skip-tags "maven"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DOCKER:
+-------
+1)docker home directory ?
+a)/var/lib/docker
+
+2)how will you integrate a docker server in jenkins ?
+a)add it as agent to run tasks on the docker server
+
+3)write a dockerfile using a linus and webserver ?
+a)
+
+4)entrypoint vs cmd ?
+a)a Dockerfile should specify atleast one CMD or ENTERPOINT instruction
+	-->at the end only you will need to use CMD and ENTRYPOINT in a Dockerfile
+	-->ENTRYPOINT should be defined when using the container as an executable
+	-->you should use the CMD instruction as a way of defining default arguments for the command defined as ENTRYPOINT (or)
+	    for executing an ad-hoc command in a container
+	-->CMD will be overridden when running the container with alternative arguments
+	-->ENTRYPOINT sets the concerte default application that is used everytime a container is created using the image
+	-->if you couple ENTRYPOINT with CMD, you can remove an executable from CMD and just leave its arguments which will be passed to ENTRYPOINT
+	-->the best use for ENTRYPOINT is to set the image's main command, allowing that image to run as though it was that command (and then use CMD as default flags)	    
+ex:
+FROM ubuntu:20.04
+ENTRYPOINT [ "echo", "hello" ] ---->constant
+docker container run <image_name>
+
+FROM ubuntu:20.04
+ENTRYPOINT [ "echo" ] ---->constant
+CMD [ "hello" ] ----->replacable
+docker container run <image_name> bye
+
+FROM ubuntu:20.04
+CMD [ "echo", "hello" ] ---->replacable
+docker container run <image_name> hi
+
+5)what is ADD?
+a)ADD is used to copy a file from the url, it will be used to copy both local files and remote(urls)
+ex:
+ADD <url> /opt/
+
+6)what is COPY ?
+a)it will be used when you want to copy local server files
+ex:
+COPY /etc/demo.txt /etc/test.txt
+
+7)where you used docker to slove a specific problem ?
+a)in recent project we faces incosistency issues in development and production environments, leading to deployment errors. To slove this we adopted docker and deployed the app using k8s
+
+8)there are multiple stopped containers and unused network, volumes taking up spaces, how will you clean up these resources effectively ?
+a)docker system prune
+
+9)what is an ARG and ENV in dockerfile ?
+a)ARG : while using docker image build we can use ARG
+	  docker image build --build-arg version=2
+	  ARG lifetime is during the docker build
+  ENV : while running docker container run we can use ENV
+	  docker container run -e var=2
+
+DOCKER SCENARIO-BASED INTERVIEW QUESTIONS:
+------ ---------------- ---------- -----------
+##Scenario 1
+* You have a Docker container running a webserver, but you need to update the application code inside it. How would you approach this task ?
+### Task: Updating Application Code Inside a Running Container
+**Answer**:
+1. Stop the running container using `docker stop`
+2. Pull the latest version of thr Docker image with updated code using `docker pull`
+3. Run a new container with the updated image, ensuring to map volumes and ports using `docker run`
+4. Verify the new container is running correctly
+
+##Sscenario 2
+* Your team is deploying a microservices architecture using docker containers. How would you orchestrate and manage these containers effectively ?
+### Task: Orchestarting Microservice Architecture
+**Answer**:
+I would use docker swarm or Kubernetes for container orchestration. Both tools facilitate management and scaling across multiple hosts. For docker swarm, i should use commands like `docker service create` for deployments and updates. In kubernetes, I should define deployment configurations via YAML files and use `kubectl` for management.
+
+##Sscenario 3
+* you have encountered a problem a Docker container keeps crashing without any clear error message. How would you troubleshoot and diagnose this issue? 
+### task: Troubleshooting container crash
+**Answer**:
+1. Check container log with `docker logs [container_name]`
+2. Inspect resource usuage and runtime stats using `docker stats [container_name]`
+3. Review host system logs and metrics
+4. If needed, SSH using container using `docker exec -it [container-name] /bin/bash` for direct troubleshotting
+5. Review Dockerfile and configuration for misconfigurations
+
+##Sscenario 4
+* your team needs to share data between multiple Docker containers. How would you accomplish this while maintaining isolation between the containers ?
+### Task: Sharing Data Between Containers
+**Answer**:
+i should use Docker volumes or networks. volumes offer presistent storage shared among containers, while networks enable secure communication. This setup allows containers to access shared data or communicate without impacting each other
+
+##Sscenario 5
+* you need to ensure that your Docker containers are secure and complaint with company policies. What security best practicers would you implement ?
+### Task: Implementing Security Best Practices
+**Answer**:
+1. Regularly update Docker images and containers
+2. Utilize Dockers security features (user namespaces, seccomp profiles , etc)
+3. Employ least privilege principles for containers permission
+4. Use Docker Content Trust for image integrity
+5. Scan Docker images for vulnerabilities
+6. Monitor container activity for security incidents
+
+
+
+
+
+
+
+
+KUBERNETES:
+-----------
+1)what is namespace ?
+a)namespaces are logical separaters used for dividing cluster resources between multiple users. They are meant for environments where there are many users spread accross 		projects or teams and provide a scope of resources.
+
+2)what are the different services with in the k8s ?
+a)different types of k8s services include :
+	--->Cluster IP service
+	--->Node Port service
+	--->External Name Creation service and 
+	--->Load Balancer service
+  --->the ClusterIP service is the default k8s service that provides a service inside a cluster (with no external access) that other apps inside your cluster can access
+  --->the NodePort service is the most fundamental way to get external traffic directly to your service. It opens a specific port on all Nodes and forwards any traffic sent to this 	port to the service
+  --->the Load Balancer service is used to expose services to the internet. A network load balancer
+	ex:
+	--->creates a single IP address that forwards all traffic to your service
+
+3)what is the type deployment stategy of k8s ?
+a)rolling update : zero downtime
+  recreate : downtime
+
+
+
+
+
+
+
+
+Kubernetes SCENARIO-BASED INTERVIEW QUESTIONS:
+--------- ---------------- ---------- -----------
+##Scenario 1
+* your company is migrating its monolithic application to a microservices architecture on kubernetes. How would you plan and execute this migration ?
+### Task: Migrating Monolithic Application to Microservices
+**Answer**:
+1. Access the monolithic application to identify microservices
+2. Define container images and kubernetes deployment configurations
+3. Set up Kubernetes cluster on-premises or using a cloud provider
+4. Deploy microservices to the cluster with proper networking
+5. Implement monitoring and logging solutions
+6. Decompose the monolithic app into microservices gradually
+
+##Scenario 2
+* you have a stateful application that requires presistent storage in kubernetes. How would you configure presistent storage for this application ?
+### Task: Configuring Presistent Storage for Stateful Application
+**Answer**:
+1. Define PresistentVolume (PV) PresistentVolumeClaim (PVC) in YAML
+2. Choose an appropriate storage class
+3. Specify access mode, capacity, and other parameters in PVC
+4. Attach PVC to pods in their YAML manifasts
+5. Deploy Pods to kubernetes cluster, ensuring access to presistent storage 
+
+##Scenario 3
+*you are experiencing performance issues with your Kubernets Cluster. How would you diagnose and reslove these issues ?
+### Task: Diagnosing Performance Issues in Kubernetes Cluster 
+**Answer**:
+1. Monitor resource utilization: cpu, memory, disk. 
+2. Use kubernetes dashboard or monitoring tools
+3. check logs of individual pods of errors
+4. Scale up cluster by adding more worker nodes if needed
+5. Optimize resource requests and limits for pods
+6. Implement horizontal pod autoscaling
+
+##Scenario 4
+*you need deploy a kubernetes application accross the multiple environments (dev, staging, production) with different configurations. How would you manage environmet-specific configurations in kubernetes ?
+### Task: Manging Environment-Specific Configurations
+**Answer**:
+1. use config-Maps to store Environment-Specific config data
+2. Create separate Configmaps for each environment
+3. Reference ConfigMaps in pod deployment configs using env variables or volume mounts
+4. Use kubernetes namespaces to isolate resources
+5. Utilize tools like Helm for templating and managing manifests
+
+##Scenario 5
+*your team wants to implement rolling updates for a kubernetes deployment to minimize downtime during application updates. How would you archive this ?
+### Task: Implementing Rolling Updates for Kubernetes Deployment
+**Answer**:
+1. Define a new version of the container image
+2. Update the deploymet configurations to use the new image
+3. Set deployment strategy of `RollingUpdate`
+4. Specify maxSurge and maxUnavailable parameters
+5. Apply updated deployment config to the cluster
+6. Monitor rollout progress and rollback if needed
+
+
+
+
+
+
+
+
+
+TERRAFORM:
+----------
+1)what is statefile in terraform ?
+a)statefile contains the history of deployment
+
+2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
