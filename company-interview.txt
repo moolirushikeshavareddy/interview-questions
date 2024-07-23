@@ -1,8 +1,8 @@
 								INTERVIEW COMPANIES
 								----------------------
 
-Congizant : ROUND-1 (terraform,jenkins,ansible,prometheus,garfana,aws,sonarqube,python)
---------  --------
+A)Congizant : ROUND-1 (terraform,jenkins,ansible,prometheus,garfana,aws,sonarqube,python)
+-------- DEVOPS ROLE(Jenkins, Terraform,AWS) --------
 1)what is state file in terraform ?
 2)where you will store it in remote or local ?
 3)how can you retrive if your state file is corrupted ?
@@ -25,10 +25,15 @@ Congizant : ROUND-1 (terraform,jenkins,ansible,prometheus,garfana,aws,sonarqube,
 20)what is import in terraform ?
 21)how will you configure to tomcat in jenkins ?
 22)i have structured data and non-structured data, how will you compare both  in python ?
+feedback :
+--------
+need to improve skills in terraform, jenkins, and prometheus and garfana 
 
 
-Appiness : ROUND-1 (linux,aws,jenkins,rds,prometheus,garfana,docker,docker-compose)
--------  --------
+
+
+B)Appiness : ROUND-1 (linux,aws,jenkins,rds,prometheus,garfana,docker,docker-compose)
+------- DEVOPS ROLE (AWS,Jenkins, Terraform, Linux)--------
 1)what are the types of ec2 and explain it ?
 2)what is difference between t,m,c series in ec2 ?
 3)what are the different types of ec2-instances(cost-priceing) ?
@@ -80,22 +85,162 @@ Appiness : ROUND-1 (linux,aws,jenkins,rds,prometheus,garfana,docker,docker-compo
 49)what are metrics you will see in top ?
 50)i want to execute the docker file which permissions you will give ?
 51)i want to change the owner-ship of docker file, how can you do it ?
+feedback :
+---------
+almost all question you have answered, check with AWS and Docker, remaining terraform and jenkins no issue
 
 
 
 
 
 
+c)Terralogic - Software Development and IT Services Company(docker, kubernetes)
+-------------DEVOPS(python, ansible, docker, kubernetes) --------- ----------- --------------- ---------------------------
+1)tell me about yourself ?
+2)tell me about your project ?
+3)what is the motive of this project ?
+4)how many years of experence in kubernetes ?
+feedback :
+--------
+we are looking for 3 years of experenece candidate, thankyou !
 
 
 
 
 
+D)Flipkart : ROUND-1 ()
+-------- SRE ROLE (Linux, Terraform, Ansible, python, Bash) -----------
+1)tell me about 5 linux commands and explain them ?
+2)how to see cpu metrics ?
+3)what are the 3 load types in cpu of top command ?
+4)how to check all files are open or not ?
+5)can we create 2 state files in terraform ?
+6)what is statelock ?
+7)what is statefile ?
+8)what are the 3 main files in terraform ?
+9)explain roles in ansible ?
+10)what is ansible inventory ?
+11)do you know shell scripting, python, ansible if know write the code for the below description ?
+
+Description:
+
+In Flipkart we destroy VMs. Before destroying a VM from production, we want to do a list of checks to avoid production outage and gracefully remove it from rotation. 
+
+Write automation to do the following checks. Automation should be scalable, should be able to run on hundreds of VMs
+
+Your utility will take 1 input file:
+Input file will contain this JSON:
+
+Prod-hadoop-dn-002: Check_1, Check_2, Check_3
+prod-hadoop-dn-001: Check_1, Check_2
+localhost: Check_1
+
+You need to create a small application in any of the scripting languages that will perform the above validation/checks on the linux VMs. On Prod-hadoop-dn-002, Check_1, Check_2, Check_3 will be performed while on prod-hadoop-dn-001 only Check_1, Check_2 will be performed. Check definitions can be found below:
+ 
+Checks: 
+Check_1: Ensure datanode service process (Service name: hadoop-hdfs-datanode.service) is not running in the VM
+
+Check_2: The VM (hostname) should not be part of a global active list. And if it is part of the active list, then flag a warning for the node and fail the check. You can retrieve the active list of nodes from an external HTTP endpoint - https://pastebin.com/raw/0hQ2VnwS
+
+Run HTTP request on Hadoop namenode jmx and get list of active nodes 
+Http Endpoint - https://pastebin.com/raw/0hQ2VnwS
+
+response :
+https://pastebin.com/raw/0hQ2VnwS		
+	{
+  "LiveNodes": [
+    "prod-hadoop-dn-001",
+    "prod-hadoop-dn-002",
+    "prod-hadoop-dn-003",
+    "localhost",
+    "127.0.0.1"
+  ]
+}
+
+
+
+Sample output
+-------------
+{
+  "beans": [
+    {
+      "name": "Hadoop:service=NameNode,name=NameNodeInfo",
+      "modelerType": "org.apache.hadoop.hdfs.server.namenode.FSNamesystem",
+      "LiveNodes": [
+        "prod-hadoop-dn-001",
+        "prod-hadoop-dn-002",
+        "prod-hadoop-dn-003"
+      ]
+    }
+  ]
+}
+
+
+
+In the above e.g. prod-hadoop-dn-001, prod-hadoop-dn-002, prod-hadoop-dn-003 are active and these should not be destroyed. Everything other VM can be destroyed
+
+Check_3: Average storage available is > 80% across all the disk mounts
+If a VM has 3 disk mounts each having 10%, 20%, 30% available respectively, then the overall average disk availability is 20% for the VM
+
+Assume that disks are of type :,
+/dev/xda ( boot disk ) 
+/dev/xdb 
+..
+…
+
+Please exclude the boot disk from calculation. 
+
+Add-on : Scale this model for 1000’s of nodes , and how to handle the aggregated outputs from all the nodes .
+
+Expected output:
+For each VM in the input it should say, for each check whether the check passed or failed with warning
+
+Sample Input:
+Prod-hadoop-dn-002: Check_1, Check_2, Check_3
+prod-hadoop-dn-001: Check_1, Check_2
+localhost: Check_1
+
+
+Output:
+localhost Check_1 success
+Prod-hadoop-dn-001 Check_1 success
+Prod-hadoop-dn-001 Check_2 failed
+Prod-hadoop-dn-002 Check_1 success
+Prod-hadoop-dn-002 Check_2 failed
+Prod-hadoop-dn-002 Check_3 success
+
+
+Expectation
+
+Code / Script should be modular
+Your code should be demo-able on your local dev machine, you can either prepare a test set or the interviewer will provide a test set
+You can use the internet for any syntax while coding
+Ensure all edge cases are handled e.g. VMs are not sshable, etc
+
+
+
+
+==============================
+Code from Rushi:
+
+#! bin/bash 
+sudo ps -ef >> file.txt
+cat file.txt | rm -rf host* >> file.txt
+input = ""
+while (file.txt == true){
+		if(cat file.txt | input == active >> active.json){
+        		echo active.json
+        	}
+            if(cat file.txt | input == failure >> failure.json){
+        		sudo systemctl failure.json
+        	}
+ }  	
+feedback :
+---------
+need to improve skills in linux basics and shell script writing, ansible and python
 
 
 
 
 
-
-
-
+e)
