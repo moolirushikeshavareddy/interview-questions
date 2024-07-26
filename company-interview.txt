@@ -243,4 +243,55 @@ need to improve skills in linux basics and shell script writing, ansible and pyt
 
 
 
-e)
+e)Sutherland Global 
+question 1 :write a groovy code to convert list into json
+-------------
+["101":"Ram,Hyderabad,20000","102":"Shyam,Delhi,40000","103":"Divya,Banglore,25000"]
+
+code :
+-------
+import groovy.json.JsonOutput
+
+def data = [
+    "101:Ram,Hyderabad,20000",
+    "102:Shyam,Delhi,40000",
+    "103:Divya,Banglore,25000"
+]
+
+def parsedData = data.collect { entry ->
+    def parts = entry.split(':')
+    def id = parts[0]
+    def details = parts[1].split(',')
+
+    [
+        id     : id,
+        name   : details[0],
+        city   : details[1],
+        salary : details[2].toInteger()
+    ]
+}
+
+def jsonOutput = JsonOutput.toJson(parsedData)
+println JsonOutput.prettyPrint(jsonOutput)
+
+
+
+question 2: write code to print sum of second last digit in each element
+--------------
+[13245, 12343, 123435]
+
+code :
+-------
+def numbers = [13245, 12343, 123435]
+
+def sumSecondLastDigits = numbers.collect { number ->
+    def digits = number.toString().toList()*.toInteger()
+    digits[-2]  // Extract the second last digit
+}.sum()
+
+println "Sum of second last digits: ${sumSecondLastDigits}"
+
+
+
+question 3: write a python code to create an api
+-----------
