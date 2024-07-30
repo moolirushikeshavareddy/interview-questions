@@ -243,7 +243,8 @@ need to improve skills in linux basics and shell script writing, ansible and pyt
 
 
 
-e)Sutherland Global 
+e)Sutherland Global (python, json, shell scripting)
+------DEVOPS ENGINEER ---------------
 question 1 :write a groovy code to convert list into json
 -------------
 ["101":"Ram,Hyderabad,20000","102":"Shyam,Delhi,40000","103":"Divya,Banglore,25000"]
