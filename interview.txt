@@ -188,13 +188,13 @@ DOCKER SCENARIO-BASED INTERVIEW QUESTIONS:
 3. Run a new container with the updated image, ensuring to map volumes and ports using `docker run`
 4. Verify the new container is running correctly
 
-##Sscenario 2
+##Scenario 2
 * Your team is deploying a microservices architecture using docker containers. How would you orchestrate and manage these containers effectively ?
 ### Task: Orchestarting Microservice Architecture
 **Answer**:
 I would use docker swarm or Kubernetes for container orchestration. Both tools facilitate management and scaling across multiple hosts. For docker swarm, i should use commands like `docker service create` for deployments and updates. In kubernetes, I should define deployment configurations via YAML files and use `kubectl` for management.
 
-##Sscenario 3
+##Scenario 3
 * you have encountered a problem a Docker container keeps crashing without any clear error message. How would you troubleshoot and diagnose this issue? 
 ### task: Troubleshooting container crash
 **Answer**:
@@ -204,13 +204,13 @@ I would use docker swarm or Kubernetes for container orchestration. Both tools f
 4. If needed, SSH using container using `docker exec -it [container-name] /bin/bash` for direct troubleshotting
 5. Review Dockerfile and configuration for misconfigurations
 
-##Sscenario 4
+##Scenario 4
 * your team needs to share data between multiple Docker containers. How would you accomplish this while maintaining isolation between the containers ?
 ### Task: Sharing Data Between Containers
 **Answer**:
 i should use Docker volumes or networks. volumes offer presistent storage shared among containers, while networks enable secure communication. This setup allows containers to access shared data or communicate without impacting each other
 
-##Sscenario 5
+##Scenario 5
 * you need to ensure that your Docker containers are secure and complaint with company policies. What security best practicers would you implement ?
 ### Task: Implementing Security Best Practices
 **Answer**:
