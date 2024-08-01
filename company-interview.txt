@@ -298,3 +298,22 @@ question 3: write a python code to create an api
 -----------
 
 
+
+
+f)Ekaggata Technology : SCREENING ROUND -1 (ec2, vpc, asg, lb, route53, iam, lamda, python, shell scripting, terraform)
+---------- -----------DEVOPS ROLE (AWS, TERRAFORM, PYTHON, SHELL SCRIPTING) --------------------- ---------------------
+1)how many concepts you know in aws ?
+2)how many topics you know in terraform ?
+3)do you know scripting language ?
+4)did you worked with iam and lamda functions ?
+
+
+
+
+
+
+
+
+
+
+
